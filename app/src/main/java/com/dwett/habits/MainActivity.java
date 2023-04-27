@@ -115,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
     /*
      * Returns if a known type was selected
      */
+    @SuppressLint("NonConstantResourceId")
     private boolean inflateBasedOffMenuItem(int item) {
         this.menuItemStack.add(item);
         switch (item) {
@@ -175,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
         if (habitListRecyclerView == null) {
             habitListRecyclerView = findViewById(R.id.habit_list_recycler_view);
             habitListRecyclerView.setHasFixedSize(true);
-            RecyclerView.Adapter habitListRecyclerViewAdapter = habitList;
+            RecyclerView.Adapter<HabitList.HabitHolder> habitListRecyclerViewAdapter = habitList;
             habitListRecyclerView.setAdapter(habitListRecyclerViewAdapter);
             RecyclerView.LayoutManager habitListRecyclerViewLayoutManager = new LinearLayoutManager(this);
             habitListRecyclerView.setLayoutManager(habitListRecyclerViewLayoutManager);
@@ -192,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void inflateSummaryView() {
         summaryRecyclerView = findViewById(R.id.summary_recycler_view);
-        RecyclerView.Adapter summaryViewAdapter = new Summary(this.db, this.habitEditor);
+        RecyclerView.Adapter<Summary.SummaryHolder> summaryViewAdapter = new Summary(this.db, this.habitEditor);
         summaryRecyclerView.setAdapter(summaryViewAdapter);
         RecyclerView.LayoutManager summaryRecyclerViewLayoutManager = new LinearLayoutManager(this);
         summaryRecyclerView.setLayoutManager(summaryRecyclerViewLayoutManager);
@@ -208,6 +209,7 @@ public class MainActivity extends AppCompatActivity {
         maybeHideNoHabitWarning();
     }
 
+    @SuppressLint({"InflateParams", "SetTextI18n"})
     private void inflateManageHabits() {
         boolean firstInitialization = manageHabitView == null;
         if (firstInitialization) {
@@ -269,8 +271,8 @@ public class MainActivity extends AppCompatActivity {
             Intent exportActivity = new Intent(this, DisplayExportActivity.class);
             Habit[] habits = db.habitDao().loadAllHabits();
             Event[] events = db.habitDao().loadAllEventsSince(0);
-            String habitsCSV = String.join("\n", Arrays.stream(habits).map(Habit::csv).collect(Collectors.toList()));
-            String eventsCSV = String.join("\n", Arrays.stream(events).map(Event::csv).collect(Collectors.toList()));
+            String habitsCSV = Arrays.stream(habits).map(Habit::csv).collect(Collectors.joining("\n"));
+            String eventsCSV = Arrays.stream(events).map(Event::csv).collect(Collectors.joining("\n"));
             exportActivity.putExtra("habits", habitsCSV);
             exportActivity.putExtra("events", eventsCSV);
             startActivity(exportActivity);
@@ -417,7 +419,7 @@ public class MainActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT
                 ).show();
 
-                // Close the keyboard hackily?
+                // Close the keyboard hacky?
                 InputMethodManager in = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 in.hideSoftInputFromWindow(habitCreateTextInput.getWindowToken(), 0);
             });

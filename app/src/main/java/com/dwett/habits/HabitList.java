@@ -1,6 +1,7 @@
 package com.dwett.habits;
 
 import android.content.res.ColorStateList;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Pair;
 import android.view.LayoutInflater;
@@ -20,9 +21,9 @@ import java.util.function.Consumer;
 
 public class HabitList extends RecyclerView.Adapter<HabitList.HabitHolder> {
 
-    private LinkedList<Habit> habits;
-    private HabitDatabase db;
-    private Consumer<Pair<Habit, Event[]>> editHabitCallback;
+    private final LinkedList<Habit> habits;
+    private final HabitDatabase db;
+    private final Consumer<Pair<Habit, Event[]>> editHabitCallback;
 
     public HabitList(Habit[] habits, HabitDatabase db, Consumer<Pair<Habit, Event[]>> editHabitCallback) {
         this.habits = new LinkedList<>();
@@ -31,6 +32,7 @@ public class HabitList extends RecyclerView.Adapter<HabitList.HabitHolder> {
         this.editHabitCallback = editHabitCallback;
     }
 
+    @NonNull
     @Override
     public HabitHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
@@ -152,9 +154,9 @@ public class HabitList extends RecyclerView.Adapter<HabitList.HabitHolder> {
             idToIsDone.put(h.id, HabitLogic.isDone(h, events));
             originalIDOrder[i++] = h.id;
         }
-        Collections.sort(this.habits, (o1, o2) -> {
-            boolean o1IsDone = idToIsDone.get(o1.id);
-            boolean o2IsDone = idToIsDone.get(o2.id);
+        this.habits.sort((o1, o2) -> {
+            boolean o1IsDone = Boolean.TRUE.equals(idToIsDone.get(o1.id));
+            boolean o2IsDone = Boolean.TRUE.equals(idToIsDone.get(o2.id));
             if (o1IsDone && !o2IsDone) {
                 return 1;
             }
@@ -191,10 +193,10 @@ public class HabitList extends RecyclerView.Adapter<HabitList.HabitHolder> {
 
     static class HabitHolder extends RecyclerView.ViewHolder {
 
-        private TextView title;
-        private TextView description;
-        private Button doneButton;
-        private ProgressBar progressBar;
+        private final TextView title;
+        private final TextView description;
+        private final Button doneButton;
+        private final ProgressBar progressBar;
 
         HabitHolder(View itemView) {
             super(itemView);

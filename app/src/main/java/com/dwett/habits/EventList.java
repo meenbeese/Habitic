@@ -6,8 +6,8 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.FragmentManager;
 import android.app.TimePickerDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
@@ -28,10 +28,10 @@ import java.util.LinkedList;
 
 public class EventList extends RecyclerView.Adapter<EventList.EventHolder> {
 
-    private LinkedList<Event> events;
-    private HabitDatabase db;
+    private final LinkedList<Event> events;
+    private final HabitDatabase db;
     private AlertDialog.Builder deleteEventConfirmerBuilder;
-    private FragmentManager fm;
+    private final FragmentManager fm;
 
     public EventList(Event[] events, HabitDatabase db, FragmentManager fm) {
         this.events = new LinkedList<>();
@@ -40,6 +40,7 @@ public class EventList extends RecyclerView.Adapter<EventList.EventHolder> {
         this.fm = fm;
     }
 
+    @NonNull
     @Override
     public EventHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
@@ -123,9 +124,9 @@ public class EventList extends RecyclerView.Adapter<EventList.EventHolder> {
 
     static class EventHolder extends RecyclerView.ViewHolder {
 
-        private TextView eventDate;
-        private TextView eventTime;
-        private Button deleteButton;
+        private final TextView eventDate;
+        private final TextView eventTime;
+        private final Button deleteButton;
 
         EventHolder(View itemView) {
             super(itemView);

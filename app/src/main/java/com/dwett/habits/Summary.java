@@ -1,6 +1,8 @@
 package com.dwett.habits;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Pair;
 import android.view.LayoutInflater;
@@ -18,23 +20,22 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 public class Summary extends RecyclerView.Adapter<Summary.SummaryHolder> {
 
-    private HabitDatabase db;
-    private Consumer<Pair<Habit, Event[]>> editHabitCallback;
-    private LinkedList<WeeklySummary> summaries;
+    private final HabitDatabase db;
+    private final Consumer<Pair<Habit, Event[]>> editHabitCallback;
+    private final LinkedList<WeeklySummary> summaries;
 
     public Summary(HabitDatabase db,  Consumer<Pair<Habit, Event[]>> editHabitCallback) {
         this.db = db;
@@ -42,6 +43,7 @@ public class Summary extends RecyclerView.Adapter<Summary.SummaryHolder> {
         this.editHabitCallback = editHabitCallback;
     }
 
+    @NonNull
     @Override
     public SummaryHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
@@ -50,6 +52,7 @@ public class Summary extends RecyclerView.Adapter<Summary.SummaryHolder> {
         return new SummaryHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(final SummaryHolder holder, int position) {
         final WeeklySummary thisSummary = this.summaries.get(position);
@@ -58,7 +61,7 @@ public class Summary extends RecyclerView.Adapter<Summary.SummaryHolder> {
                 new SummaryListViewAdapter(
                         holder.listView.getContext(),
                         thisSummary.habitSummaries.toArray(
-                                new HabitSummary[thisSummary.habitSummaries.size()]
+                                new HabitSummary[0]
                         )
                 )
         );
@@ -87,8 +90,8 @@ public class Summary extends RecyclerView.Adapter<Summary.SummaryHolder> {
 
     static class SummaryHolder extends RecyclerView.ViewHolder {
 
-        private TextView title;
-        private ListView listView;
+        private final TextView title;
+        private final ListView listView;
 
         SummaryHolder(View itemView) {
             super(itemView);
@@ -126,12 +129,12 @@ public class Summary extends RecyclerView.Adapter<Summary.SummaryHolder> {
             if (!habitIDToEvent.containsKey(e.habitId)) {
                 habitIDToEvent.put(e.habitId, new LinkedList<>());
             }
-            habitIDToEvent.get(e.habitId).add(e);
+            Objects.requireNonNull(habitIDToEvent.get(e.habitId)).add(e);
             allEvents.add(e);
         }
 
         // Sort all the events by time
-        Collections.sort(allEvents, Comparator.comparingLong(o -> o.timestamp));
+        allEvents.sort(Comparator.comparingLong(o -> o.timestamp));
 
         // Iterate through the events, compute the summary week and the start and end week for each
         // habit
@@ -158,7 +161,7 @@ public class Summary extends RecyclerView.Adapter<Summary.SummaryHolder> {
                 habitsWithEventsInPage.add(habitIDToHabit.get(e.habitId));
                 habitIdToStartWeek.put(e.habitId, summaryWeek);
             }
-            if (habitIDToHabit.get(e.habitId).archived) {
+            if (Objects.requireNonNull(habitIDToHabit.get(e.habitId)).archived) {
                 habitIdToEndWeek.put(e.habitId, summaryWeek);
             }
 
@@ -167,7 +170,7 @@ public class Summary extends RecyclerView.Adapter<Summary.SummaryHolder> {
             }
         }
         // Sort all the habits so that higher frequency ones are first, then by title
-        Collections.sort(habitsWithEventsInPage, (o1, o2) -> {
+        habitsWithEventsInPage.sort((o1, o2) -> {
             if (o1.frequency == o2.frequency) {
                 return o1.title.compareTo(o2.title);
             }
@@ -181,11 +184,11 @@ public class Summary extends RecyclerView.Adapter<Summary.SummaryHolder> {
         for (String summaryWeek : summaryWeeks) {
             WeeklySummary toAdd = new WeeklySummary(summaryWeek);
             for (Habit h: habitsWithEventsInPage) {
-                if (habitIdToStartWeek.get(h.id).equals(summaryWeek)) {
+                if (Objects.equals(habitIdToStartWeek.get(h.id), summaryWeek)) {
                     startedHabits.add(h.id);
                 }
                 boolean justEnded = false;
-                if (habitIdToEndWeek.get(h.id).equals(summaryWeek)) {
+                if (Objects.equals(habitIdToEndWeek.get(h.id), summaryWeek)) {
                     justEnded = true;
                     endedHabits.add(h.id);
                 }
@@ -198,11 +201,11 @@ public class Summary extends RecyclerView.Adapter<Summary.SummaryHolder> {
                 }
 
                 // Omit entries for archived habits if they have no events for the week.
-                List<Event> eventsInWeek = habitIDToEvent
-                        .getOrDefault(h.id, new LinkedList<>())
+                List<Event> eventsInWeek = Objects.requireNonNull(habitIDToEvent
+                                .getOrDefault(h.id, new LinkedList<>()))
                         .stream()
                         .filter(
-                            (event) -> eventIdToSummaryWeek.get(event.id).equals(summaryWeek)
+                            (event) -> Objects.equals(eventIdToSummaryWeek.get(event.id), summaryWeek)
                         )
                         .collect(Collectors.toList());
 
@@ -238,8 +241,8 @@ public class Summary extends RecyclerView.Adapter<Summary.SummaryHolder> {
     }
 
     static class WeeklySummary {
-        private String weekTitle;
-        private LinkedList<HabitSummary> habitSummaries;
+        private final String weekTitle;
+        private final LinkedList<HabitSummary> habitSummaries;
 
         public WeeklySummary(String weekTitle) {
             this.weekTitle = weekTitle;
@@ -252,8 +255,8 @@ public class Summary extends RecyclerView.Adapter<Summary.SummaryHolder> {
     }
 
     static class HabitSummary {
-        private long id;
-        private String title;
+        private final long id;
+        private final String title;
         private float progress;
 
         HabitSummary(Habit h, List<Event> events) {
@@ -278,11 +281,12 @@ public class Summary extends RecyclerView.Adapter<Summary.SummaryHolder> {
             this.summaries = summaries;
         }
 
+        @NonNull
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(int position, View convertView, @NonNull ViewGroup parent) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(
                     Context.LAYOUT_INFLATER_SERVICE);
-            View rowView = inflater.inflate(R.layout.habit_summary_list_element, parent, false);
+            @SuppressLint("ViewHolder") View rowView = inflater.inflate(R.layout.habit_summary_list_element, parent, false);
             TextView habitTitle = rowView.findViewById(R.id.summary_habit_title);
             habitTitle.setText(summaries[position].title);
 
