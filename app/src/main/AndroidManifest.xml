@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.dwett.habits">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- permission required to automatically restart a
          repeating alarm if the user reboots the device -->
