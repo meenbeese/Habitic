@@ -38,7 +38,8 @@ public class NotificationScheduler {
                 context,
                 REMINDER_REQUEST_CODE,
                 intent1,
-                PendingIntent.FLAG_UPDATE_CURRENT);
+                PendingIntent.FLAG_UPDATE_CURRENT
+                | PendingIntent.FLAG_IMMUTABLE);
 
         LocalDateTime nowTime = LocalDateTime.now();
         if (nowTime.getMinute() != 0) {
@@ -73,7 +74,8 @@ public class NotificationScheduler {
                 context,
                 REMINDER_REQUEST_CODE,
                 intent1,
-                PendingIntent.FLAG_UPDATE_CURRENT);
+                PendingIntent.FLAG_UPDATE_CURRENT
+                | PendingIntent.FLAG_IMMUTABLE);
         AlarmManager am = (AlarmManager) context.getSystemService(ALARM_SERVICE);
         am.cancel(pendingIntent);
         pendingIntent.cancel();

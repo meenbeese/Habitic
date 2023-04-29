@@ -9,4 +9,16 @@
     <string name="create_habit">Create</string>
     <string name="save_habit">Save</string>
     <string name="no_habits_yet_tap_manage_to_add_some">No habits yet, tap \"Manage\" below and add some!</string>
+    <string name="title">Title</string>
+    <string name="save">Save</string>
+    <string name="archived">Archived</string>
+    <string name="imported">Import</string>
+    <string name="exported">Export</string>
+    <string name="importing"/>
+    <string name="date">April 20, 2018</string>
+    <string name="time">at 12:23PM</string>
+    <string name="delete">Delete</string>
+    <string name="habit_title">Habit Title</string>
+    <string name="habit_longer_description">Habit longer description</string>
+    <string name="week_of_whatever">Week of whatever</string>
 </resources>
