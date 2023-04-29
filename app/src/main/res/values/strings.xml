@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">Habits</string>
-    <string name="title_manage">Manage</string>
-    <string name="title_habits">Habits</string>
-    <string name="title_summary">Summary</string>
-    <string name="channel_name">Habits</string>
+    <string name="app_name">Habitic</string>
+    <string name="title_manage">Settings</string>
+    <string name="title_habits">Home</string>
+    <string name="title_summary">Overview</string>
+    <string name="channel_name">My Habits</string>
     <string name="channel_description">For habit notifications</string>
     <string name="times_per_week">Times per week</string>
     <string name="create_habit">Create</string>
