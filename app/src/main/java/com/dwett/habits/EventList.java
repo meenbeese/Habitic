@@ -92,21 +92,14 @@ public class EventList extends RecyclerView.Adapter<EventList.EventHolder> {
     }
 
     public void addAll(Event[] events) {
-        int startIndex = this.events.size();
-        this.events.addAll(startIndex, Arrays.asList(events));
-        this.notifyItemRangeInserted(startIndex, events.length);
+        this.events.addAll(Arrays.asList(events));
+        this.notifyDataSetChanged();
     }
 
     public void removeEvent(int index) {
-        int size = events.size();
-        if (index < 0 || index >= size) {
-            return;
-        }
-        events.remove(index);
-        notifyItemRemoved(index);
-        if (index < size - 1) {
-            notifyItemRangeChanged(index, size - index - 1);
-        }
+        this.events.remove(index);
+        this.notifyItemRangeRemoved(index, 1);
+        this.notifyItemRangeChanged(index, this.getItemCount());
     }
 
     public int getEventIndex(Event e) {
@@ -141,6 +134,8 @@ public class EventList extends RecyclerView.Adapter<EventList.EventHolder> {
             eventTime = itemView.findViewById(R.id.event_time);
             deleteButton = itemView.findViewById(R.id.event_delete_button);
         }
+
+        // TODO: Add listeners?
     }
 
     public static class EventDatePicker extends DialogFragment implements DatePickerDialog.OnDateSetListener {
