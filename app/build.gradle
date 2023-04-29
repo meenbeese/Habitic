@@ -1,14 +1,19 @@
-apply plugin: 'com.android.application'
-apply plugin: 'org.jetbrains.kotlin.android'
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
 
 android {
-    compileSdkVersion 33
+    namespace 'com.dwett.habits'
+    compileSdk 33
+
     defaultConfig {
         applicationId "com.dwett.habits"
-        minSdkVersion 26
-        targetSdkVersion 33
+        minSdk 26
+        targetSdk 33
         versionCode 1
         versionName "1.0"
+
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
             annotationProcessorOptions {
@@ -33,20 +38,26 @@ android {
     lintOptions {
         abortOnError false
     }
-
-    namespace 'com.dwett.habits'
-    buildToolsVersion '33.0.1'
-    ndkVersion '25.2.9519653'
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support.constraint:constraint-layout:2.0.4'
-    implementation 'com.android.support:design:28.0.0'
+
+    // Core and UI
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+
+    // Material and icons
+    implementation 'com.google.android.material:material:1.8.0'
+
+    // Room database
+    annotationProcessor "androidx.room:room-compiler:2.5.1"
+    implementation "androidx.room:room-runtime:2.5.1"
+
+    // Testing
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    implementation "android.arch.persistence.room:runtime:1.1.1"
-    annotationProcessor "android.arch.persistence.room:compiler:1.1.1"
+
+    // Misc
     implementation 'org.jetbrains:annotations:24.0.1'
 }

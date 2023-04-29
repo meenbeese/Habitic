@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/navigation_habits"
+        android:title="@string/title_habits"
         android:icon="@drawable/ic_home_black_24dp"
-        android:title="@string/title_habits" />
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/navigation_summary"
+        android:title="@string/title_summary"
         android:icon="@drawable/ic_assessment_black_24dp"
-        android:title="@string/title_summary" />
+        app:showAsAction="always"
+        tools:ignore="AlwaysShowAction" />
 
     <item
         android:id="@+id/navigation_manage"
+        android:title="@string/title_manage"
         android:icon="@drawable/ic_build_black_24dp"
-        android:title="@string/title_manage" />
+        app:showAsAction="always" />
 </menu>

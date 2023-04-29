@@ -4,15 +4,9 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.NotificationManagerCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
 import android.util.Pair;
 import android.view.View;
@@ -21,9 +15,17 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.switchmaterial.SwitchMaterial;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -70,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
         this.menuItemStack = new ArrayList<>();
         BottomNavigationView navigation = findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(item -> inflateBasedOffMenuItem(item.getItemId()));
+        navigation.setOnItemSelectedListener((item) -> inflateBasedOffMenuItem(item.getItemId()));
         this.inflateBasedOffMenuItem(navigation.getSelectedItemId());
 
         // Set up the reminder
@@ -371,9 +373,7 @@ public class MainActivity extends AppCompatActivity {
                 ).show();
             });
 
-            builder.setNegativeButton("Cancel", (dialog, which) -> {
-                dialog.cancel();
-            });
+            builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
             builder.show();
         });
 
@@ -386,7 +386,7 @@ public class MainActivity extends AppCompatActivity {
         );
         eventListRecyclerView.setLayoutManager(eventListRecyclerViewLayoutManager);
 
-        final Switch habitArchiveSwitch = manageHabitView.findViewById(R.id.habit_archive_switch);
+        final SwitchMaterial habitArchiveSwitch = manageHabitView.findViewById(R.id.habit_archive_switch);
         final AutoCompleteTextView habitCreateTextInput = manageHabitView.findViewById(R.id.habit_title_input);
         final EditText habitCreateFrequencyInput = manageHabitView.findViewById(R.id.habit_frequency_input);
         if (habitToEdit != null) {
