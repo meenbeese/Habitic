@@ -9,18 +9,18 @@ Habitic is a simple habit tracker that places simplicity above all else while st
 
 ## 🌄 Screenshots
 
-[<img src="./.github/images/home.png" height=80% width=20% alt="Home">](./.github/images/home.png)
-[<img src="./.github/images/alarms.png" height=80% width=20% alt="Alarms">](./.github/images/alarms.png)
-[<img src="./.github/images/timers.png" height=80% width=20% alt="Timers">](./.github/images/timers.png)
-[<img src="./.github/images/themes.png" height=80% width=20% alt="Themes">](./.github/images/themes.png)
+[<img src="fastlane/metadata/en-US/images/phoneScreenshots/1.png" height=80% width=20% alt="Alarms">](foobar)
+[<img src="fastlane/metadata/en-US/images/phoneScreenshots/2.png" height=80% width=20% alt="Alarms">](foobar)
+[<img src="fastlane/metadata/en-US/images/phoneScreenshots/3.png" height=80% width=20% alt="Timers">](foobar)
+[<img src="fastlane/metadata/en-US/images/phoneScreenshots/4.png" height=80% width=20% alt="Themes">](foobar)
 
 ## ⭐ Features
 
 - Ability to add, and edit habits with customizable frequency (per week)
 - Daily push notification reminders to fill out habit status
 - Summary view to track and assess your habit formations
-- Color-coded progress bars on habits to identify which ones you're behind on.
-- Ability to archive habits after they've formed, or if you want to stop tracking them for now.
+- Color-coded progress bars on habits to identify which ones you're behind on
+- Ability to archive habits after they've formed, or to stop tracking them
 - Ability to tweak (add, adjust time, or delete) all logged events
 - Log events marked "Done" near midnight to the previous day
 - Ability to export or import all information from the app to and from a CSV
