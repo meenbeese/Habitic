@@ -44,7 +44,7 @@
         android:layout_gravity="end|bottom"
         android:layout_margin="16dp"
         android:src="@drawable/ic_content_copy_24dp"
-        android:contentDescription="@string/copy"
+        android:contentDescription="@string/copying"
         app:fabCustomSize="56dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
