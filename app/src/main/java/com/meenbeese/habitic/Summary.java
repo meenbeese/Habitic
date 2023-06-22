@@ -1,4 +1,4 @@
-package com.dwett.habits;
+package com.meenbeese.habitic;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

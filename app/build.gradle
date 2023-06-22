@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'com.dwett.habits'
+    namespace 'com.meenbeese.habitic'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.dwett.habits"
+        applicationId "com.meenbeese.habitic"
         minSdk 26
         targetSdk 33
         versionCode 1

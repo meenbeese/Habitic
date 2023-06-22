@@ -1,4 +1,4 @@
-package com.dwett.habits;
+package com.meenbeese.habitic;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;

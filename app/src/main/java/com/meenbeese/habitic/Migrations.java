@@ -1,4 +1,4 @@
-package com.dwett.habits;
+package com.meenbeese.habitic;
 
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import androidx.room.migration.Migration;

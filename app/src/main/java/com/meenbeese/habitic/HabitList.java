@@ -1,4 +1,4 @@
-package com.dwett.habits;
+package com.meenbeese.habitic;
 
 import android.content.res.ColorStateList;
 import androidx.annotation.NonNull;
@@ -13,7 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;

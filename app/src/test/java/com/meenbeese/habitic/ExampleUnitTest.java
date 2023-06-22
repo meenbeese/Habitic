@@ -1,4 +1,4 @@
-package com.dwett.habits;
+package com.meenbeese.habitic;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

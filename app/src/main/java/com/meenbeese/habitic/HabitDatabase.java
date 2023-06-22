@@ -1,4 +1,4 @@
-package com.dwett.habits;
+package com.meenbeese.habitic;
 
 import androidx.room.Database;
 import androidx.room.RoomDatabase;

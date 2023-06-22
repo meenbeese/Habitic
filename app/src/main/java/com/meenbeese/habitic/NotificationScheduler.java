@@ -1,4 +1,4 @@
-package com.dwett.habits;
+package com.meenbeese.habitic;
 
 import android.app.AlarmManager;
 import android.app.Notification;

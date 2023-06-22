@@ -1,4 +1,4 @@
-package com.dwett.habits;
+package com.meenbeese.habitic;
 
 import java.time.DayOfWeek;
 import java.time.Instant;

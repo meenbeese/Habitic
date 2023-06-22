@@ -1,4 +1,4 @@
-package com.dwett.habits;
+package com.meenbeese.habitic;
 
 import androidx.room.Dao;
 import androidx.room.Delete;

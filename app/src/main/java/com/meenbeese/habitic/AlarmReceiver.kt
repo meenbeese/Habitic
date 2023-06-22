@@ -1,4 +1,4 @@
-package com.dwett.habits
+package com.meenbeese.habitic
 
 import android.content.BroadcastReceiver
 import android.content.Context
