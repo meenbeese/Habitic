@@ -48,6 +48,7 @@ dependencies {
 
     // Material and icons
     implementation 'com.google.android.material:material:1.9.0'
+    implementation 'androidx.compose.material3:material3:1.1.1'
 
     // Room database
     annotationProcessor "androidx.room:room-compiler:2.5.2"

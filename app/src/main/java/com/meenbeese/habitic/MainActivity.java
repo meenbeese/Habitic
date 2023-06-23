@@ -25,7 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.switchmaterial.SwitchMaterial;
+import com.google.android.material.materialswitch.MaterialSwitch;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -386,7 +386,7 @@ public class MainActivity extends AppCompatActivity {
         );
         eventListRecyclerView.setLayoutManager(eventListRecyclerViewLayoutManager);
 
-        final SwitchMaterial habitArchiveSwitch = manageHabitView.findViewById(R.id.habit_archive_switch);
+        final MaterialSwitch habitArchiveSwitch = manageHabitView.findViewById(R.id.habit_archive_switch);
         final AutoCompleteTextView habitCreateTextInput = manageHabitView.findViewById(R.id.habit_title_input);
         final EditText habitCreateFrequencyInput = manageHabitView.findViewById(R.id.habit_frequency_input);
         if (habitToEdit != null) {
