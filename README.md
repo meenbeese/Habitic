@@ -1,11 +1,13 @@
 🔁 Habitic
-[![Build Status](https://github.com/fennifith/Alarmio/workflows/Gradle%20Build/badge.svg)](https://github.com/meenbeese/Habitic/actions)
+[![Build Status](https://github.com/meenbeese/Habitic/actions/workflows/gradle.yml/badge.svg)](https://github.com/meenbeese/Habitic/actions)
 [![Liberapay](https://img.shields.io/badge/liberapay-donate-yellow.svg?logo=liberapay)](https://liberapay.com/meenbeese/)
 =======
 
-  <img src="https://forthebadge.com/images/badges/built-for-android.svg"> <img src="https://forthebadge.com/images/badges/built-with-love.svg"/>
+[![forthebadge](https://forthebadge.com/images/badges/built-for-android.svg)](https://forthebadge.com)
+[![forthebadge](https://forthebadge.com/images/badges/made-with-java.svg)](https://forthebadge.com)
+[![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
 
-Habitic is a simple habit tracker that places simplicity above all else while still providing granular controls and functionality.
+**Habitic is a simple habit tracker that places simplicity above all else while still providing granular controls and functionality.**
 
 ## 🌄 Screenshots
 
@@ -27,16 +29,7 @@ Habitic is a simple habit tracker that places simplicity above all else while st
 - Ability to tweak (add, adjust time, or delete) all logged events
 - Log events marked "Done" near midnight to the previous day
 - Ability to export or import all information from the app to and from a CSV
-
-## ⚙️ Permissions
-
-- `SET_ALARM`, `VIBRATE`, `WAKE_LOCK`: necessary for the core functionality of the app
-- `ACCESS_COARSE_LOCATION`: determining automatic sunrise/sunset times for "scheduled" light/dark themes
-- `INTERNET`: obtaining a set of sunrise/sunset times (only stored locally) and fetching graphical assets and some of the information in the about page
-- `RECEIVE_BOOT_COMPLETED`: re-scheduling alarms on startup
-- `READ_EXTERNAL_STORAGE`: setting custom background / header images in the settings
-- `FOREGROUND_SERVICE`: notifying you to sleep - see the "Sleep Reminder" option in the settings
-- `REQUEST_IGNORE_BATTERY_OPTIMIZATIONS`: please see [dontkillmyapp.com](https://dontkillmyapp.com/)
+- These are done while requesting minimal permissions and respecting user privacy
 
 ## 📲 Installation
      
