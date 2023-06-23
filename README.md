@@ -15,7 +15,7 @@
 |--------------------------------------------------------------------|--------------------------------------------------------------------|
 | ![Home](fastlane/metadata/en-US/images/phoneScreenshots/1.png)     | ![Overview](fastlane/metadata/en-US/images/phoneScreenshots/3.png) |
 
-| Settings                                                           | Export                                                             |
+| Manage                                                             | Export                                                             |
 |--------------------------------------------------------------------|--------------------------------------------------------------------|
 | ![Settings](fastlane/metadata/en-US/images/phoneScreenshots/2.png) | ![Export](fastlane/metadata/en-US/images/phoneScreenshots/4.png)   |
 
