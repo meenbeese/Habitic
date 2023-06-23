@@ -53,7 +53,7 @@ public class HabitList extends RecyclerView.Adapter<HabitList.HabitHolder> {
         if (HabitLogic.onTrack(thisHabit, events, 50)) {
             holder.progressBar.setProgressTintList(
                     ColorStateList.valueOf(
-                            holder.itemView.getContext().getColor(R.color.colorAccent)));
+                            holder.itemView.getContext().getColor(R.color.red)));
         } else if (HabitLogic.onTrack(thisHabit, events, 30)) {
             holder.progressBar.setProgressTintList(
                     ColorStateList.valueOf(

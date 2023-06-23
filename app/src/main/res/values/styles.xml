@@ -1,6 +1,0 @@
-<resources>
-    <style name="Theme.Habitic" parent="Theme.Material3.DayNight">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
-</resources>
