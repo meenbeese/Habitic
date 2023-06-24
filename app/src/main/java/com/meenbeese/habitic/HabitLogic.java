@@ -62,7 +62,7 @@ class HabitLogic {
         LocalDateTime start = periodStart(h);
         int num = 0;
         for (Event e : events) {
-            LocalDateTime cur = Instant.ofEpochMilli(e.timestamp)
+            LocalDateTime cur = Instant.ofEpochMilli(e.getTimestamp())
                     .atZone(ZoneId.systemDefault())
                     .toLocalDateTime();
             // Note: what we really want here is cur >= start

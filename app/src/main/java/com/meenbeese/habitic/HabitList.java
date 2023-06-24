@@ -75,9 +75,9 @@ public class HabitList extends RecyclerView.Adapter<HabitList.HabitHolder> {
             holder.doneButton.setOnClickListener(v -> {
                 Event event = new Event();
 
-                event.habitId = thisHabit.getId();
+                event.setHabitId(thisHabit.getId());
 
-                event.timestamp = System.currentTimeMillis();
+                event.setTimestamp(System.currentTimeMillis());
                 if (event.maybeAdjustTimestampToPreviousDay()) {
                     Toast.makeText(
                             v.getContext(),

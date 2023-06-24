@@ -1,5 +1,6 @@
 package com.meenbeese.habitic;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -59,7 +60,7 @@ public class EventList extends RecyclerView.Adapter<EventList.EventHolder> {
         final EventList thisList = this;
         final Event thisEvent = this.events.get(position);
 
-        final LocalDateTime time = Instant.ofEpochMilli(thisEvent.timestamp)
+        final LocalDateTime time = Instant.ofEpochMilli(thisEvent.getTimestamp())
                 .atZone(ZoneId.systemDefault())
                 .toLocalDateTime();
         holder.eventDate.setText(time.format(DateTimeFormatter.ofPattern("MMMM d, yyyy")));
@@ -91,6 +92,7 @@ public class EventList extends RecyclerView.Adapter<EventList.EventHolder> {
         });
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void addAll(Event[] events) {
         this.events.addAll(Arrays.asList(events));
         this.notifyDataSetChanged();
@@ -105,12 +107,12 @@ public class EventList extends RecyclerView.Adapter<EventList.EventHolder> {
     public int getEventIndex(Event e) {
         int i = 0;
         for (Event cur : this.events) {
-            if (cur.id == e.id) {
+            if (cur.getId() == e.getId()) {
                 return i;
             }
             i++;
         }
-        throw new RuntimeException("Unexpected event passed to getEventIndex " + e.id);
+        throw new RuntimeException("Unexpected event passed to getEventIndex " + e.getId());
     }
 
     public void notifyEventUpdated(Event e) {
@@ -155,7 +157,7 @@ public class EventList extends RecyclerView.Adapter<EventList.EventHolder> {
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             // Use the current date as the default date in the picker
 
-            LocalDateTime dt = Instant.ofEpochMilli(this.e.timestamp)
+            LocalDateTime dt = Instant.ofEpochMilli(this.e.getTimestamp())
                     .atZone(ZoneId.systemDefault())
                     .toLocalDateTime();
 
@@ -171,7 +173,7 @@ public class EventList extends RecyclerView.Adapter<EventList.EventHolder> {
         @Override
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
 
-            LocalDateTime dt = Instant.ofEpochMilli(this.e.timestamp)
+            LocalDateTime dt = Instant.ofEpochMilli(this.e.getTimestamp())
                     .atZone(ZoneId.systemDefault())
                     .toLocalDateTime();
 
@@ -182,7 +184,7 @@ public class EventList extends RecyclerView.Adapter<EventList.EventHolder> {
                     dt.getHour(),
                     dt.getMinute());
 
-            e.timestamp = newDateTime.atZone(ZoneId.systemDefault()).toEpochSecond() * 1000L;
+            e.setTimestamp(newDateTime.atZone(ZoneId.systemDefault()).toEpochSecond() * 1000L);
             list.db.habitDao().updateEvent(e);
             list.notifyEventUpdated(e);
         }
@@ -205,7 +207,7 @@ public class EventList extends RecyclerView.Adapter<EventList.EventHolder> {
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             // Use the current date as the default date in the picker
 
-            LocalDateTime dt = Instant.ofEpochMilli(this.e.timestamp)
+            LocalDateTime dt = Instant.ofEpochMilli(this.e.getTimestamp())
                     .atZone(ZoneId.systemDefault())
                     .toLocalDateTime();
 
@@ -221,7 +223,7 @@ public class EventList extends RecyclerView.Adapter<EventList.EventHolder> {
         @Override
         public void onTimeSet(TimePicker view, int hour, int minute) {
 
-            LocalDateTime dt = Instant.ofEpochMilli(this.e.timestamp)
+            LocalDateTime dt = Instant.ofEpochMilli(this.e.getTimestamp())
                     .atZone(ZoneId.systemDefault())
                     .toLocalDateTime();
 
@@ -232,7 +234,7 @@ public class EventList extends RecyclerView.Adapter<EventList.EventHolder> {
                     hour,
                     minute);
 
-            e.timestamp = newDateTime.atZone(ZoneId.systemDefault()).toEpochSecond() * 1000L;
+            e.setTimestamp(newDateTime.atZone(ZoneId.systemDefault()).toEpochSecond() * 1000L);
             list.db.habitDao().updateEvent(e);
             Toast.makeText(getActivity(), "Event updated!", Toast.LENGTH_SHORT).show();
             list.notifyEventUpdated(e);

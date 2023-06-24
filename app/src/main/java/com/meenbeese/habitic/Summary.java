@@ -126,15 +126,15 @@ public class Summary extends RecyclerView.Adapter<Summary.SummaryHolder> {
         }
 
         for (Event e : db.habitDao().loadAllEventsSince(getEventStartTimestampMillis())) {
-            if (!habitIDToEvent.containsKey(e.habitId)) {
-                habitIDToEvent.put(e.habitId, new LinkedList<>());
+            if (!habitIDToEvent.containsKey(e.getHabitId())) {
+                habitIDToEvent.put(e.getHabitId(), new LinkedList<>());
             }
-            Objects.requireNonNull(habitIDToEvent.get(e.habitId)).add(e);
+            Objects.requireNonNull(habitIDToEvent.get(e.getHabitId())).add(e);
             allEvents.add(e);
         }
 
         // Sort all the events by time
-        allEvents.sort(Comparator.comparingLong(o -> o.timestamp));
+        allEvents.sort(Comparator.comparingLong(Event::getTimestamp));
 
         // Iterate through the events, compute the summary week and the start and end week for each
         // habit
@@ -155,14 +155,14 @@ public class Summary extends RecyclerView.Adapter<Summary.SummaryHolder> {
 
         for (Event e : allEvents) {
             String summaryWeek = summaryWeekFromEvent(e);
-            eventIdToSummaryWeek.put(e.id, summaryWeek);
+            eventIdToSummaryWeek.put(e.getId(), summaryWeek);
 
-            if (!habitIdToStartWeek.containsKey(e.habitId)) {
-                habitsWithEventsInPage.add(habitIDToHabit.get(e.habitId));
-                habitIdToStartWeek.put(e.habitId, summaryWeek);
+            if (!habitIdToStartWeek.containsKey(e.getHabitId())) {
+                habitsWithEventsInPage.add(habitIDToHabit.get(e.getHabitId()));
+                habitIdToStartWeek.put(e.getHabitId(), summaryWeek);
             }
-            if (Objects.requireNonNull(habitIDToHabit.get(e.habitId)).getArchived()) {
-                habitIdToEndWeek.put(e.habitId, summaryWeek);
+            if (Objects.requireNonNull(habitIDToHabit.get(e.getHabitId())).getArchived()) {
+                habitIdToEndWeek.put(e.getHabitId(), summaryWeek);
             }
 
             if (summaryWeeks.size() == 0 || !summaryWeeks.getLast().equals(summaryWeek)) {
@@ -205,7 +205,7 @@ public class Summary extends RecyclerView.Adapter<Summary.SummaryHolder> {
                                 .getOrDefault(h.getId(), new LinkedList<>()))
                         .stream()
                         .filter(
-                            (event) -> Objects.equals(eventIdToSummaryWeek.get(event.id), summaryWeek)
+                            (event) -> Objects.equals(eventIdToSummaryWeek.get(event.getId()), summaryWeek)
                         )
                         .collect(Collectors.toList());
 
@@ -222,7 +222,7 @@ public class Summary extends RecyclerView.Adapter<Summary.SummaryHolder> {
     }
 
     private static String summaryWeekFromEvent(Event e) {
-        LocalDateTime time = Instant.ofEpochMilli(e.timestamp)
+        LocalDateTime time = Instant.ofEpochMilli(e.getTimestamp())
                 .atZone(ZoneId.systemDefault())
                 .toLocalDateTime();
         return summaryWeekFromTime(time);

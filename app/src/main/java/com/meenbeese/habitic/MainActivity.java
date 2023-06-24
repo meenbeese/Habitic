@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
                 HabitDatabase.class,
                 "habits"
         )
-                .addMigrations(Migrations.MIGRATION_1_2)
+                .addMigrations(Migrations.Companion.getMIGRATION_1_2())
                 // TODO(davidw): Remove this!
                 .allowMainThreadQueries()
                 .build();
@@ -338,7 +338,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 HashSet<Long> eventIDs = new HashSet<>(allEvents.length);
                 for (Event e : allEvents) {
-                    eventIDs.add(e.id);
+                    eventIDs.add(e.getId());
                 }
 
                 for (String habitCSV : habitLines) {
@@ -356,7 +356,7 @@ public class MainActivity extends AppCompatActivity {
                         continue;
                     }
                     Event e = Event.fromCSV(eventCSV);
-                    if (eventIDs.contains(e.id)) {
+                    if (eventIDs.contains(e.getId())) {
                         continue;
                     }
                     db.habitDao().insertNewEvent(e);
