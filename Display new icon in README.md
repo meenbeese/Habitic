@@ -1,13 +1,21 @@
-🔁 Habitic
+<div align="center">
+<img src="/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" alt="Habitic Icon" width="164" height="164">
+</div>
+
+<div align="center">
+
+# Habitic
+
 [![Build Status](https://github.com/meenbeese/Habitic/actions/workflows/gradle.yml/badge.svg)](https://github.com/meenbeese/Habitic/actions)
 [![Liberapay](https://img.shields.io/badge/liberapay-donate-yellow.svg?logo=liberapay)](https://liberapay.com/meenbeese/)
-=======
 
 [![forthebadge](https://forthebadge.com/images/badges/built-for-android.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/made-with-java.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
 
-**Habitic is a simple habit tracker that places simplicity above all else while still providing granular controls and functionality.**
+A simple habit tracker that places simplicity above all else while still providing granular controls and functionality.
+
+</div>
 
 ## 🌄 Screenshots
 
