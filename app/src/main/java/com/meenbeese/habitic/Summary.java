@@ -122,7 +122,7 @@ public class Summary extends RecyclerView.Adapter<Summary.SummaryHolder> {
         Map<Long, Habit> habitIDToHabit = new HashMap<>();
         List<Event> allEvents = new ArrayList<>();
         for (Habit h : db.habitDao().loadAllHabits()) {
-            habitIDToHabit.put(h.id, h);
+            habitIDToHabit.put(h.getId(), h);
         }
 
         for (Event e : db.habitDao().loadAllEventsSince(getEventStartTimestampMillis())) {
@@ -147,10 +147,10 @@ public class Summary extends RecyclerView.Adapter<Summary.SummaryHolder> {
         // We assume all non-archived events are still active
         String currentSummaryWeek = currentSummaryWeek();
         for (Habit h : habitIDToHabit.values()) {
-            if (h.archived) {
+            if (h.getArchived()) {
                 continue;
             }
-            habitIdToEndWeek.put(h.id, currentSummaryWeek);
+            habitIdToEndWeek.put(h.getId(), currentSummaryWeek);
         }
 
         for (Event e : allEvents) {
@@ -161,7 +161,7 @@ public class Summary extends RecyclerView.Adapter<Summary.SummaryHolder> {
                 habitsWithEventsInPage.add(habitIDToHabit.get(e.habitId));
                 habitIdToStartWeek.put(e.habitId, summaryWeek);
             }
-            if (Objects.requireNonNull(habitIDToHabit.get(e.habitId)).archived) {
+            if (Objects.requireNonNull(habitIDToHabit.get(e.habitId)).getArchived()) {
                 habitIdToEndWeek.put(e.habitId, summaryWeek);
             }
 
@@ -171,10 +171,10 @@ public class Summary extends RecyclerView.Adapter<Summary.SummaryHolder> {
         }
         // Sort all the habits so that higher frequency ones are first, then by title
         habitsWithEventsInPage.sort((o1, o2) -> {
-            if (o1.frequency == o2.frequency) {
-                return o1.title.compareTo(o2.title);
+            if (o1.getFrequency() == o2.getFrequency()) {
+                return o1.getTitle().compareTo(o2.getTitle());
             }
-            return o2.frequency - o1.frequency;
+            return o2.getFrequency() - o1.getFrequency();
         });
 
         // Now we finish populating everything
@@ -184,25 +184,25 @@ public class Summary extends RecyclerView.Adapter<Summary.SummaryHolder> {
         for (String summaryWeek : summaryWeeks) {
             WeeklySummary toAdd = new WeeklySummary(summaryWeek);
             for (Habit h: habitsWithEventsInPage) {
-                if (Objects.equals(habitIdToStartWeek.get(h.id), summaryWeek)) {
-                    startedHabits.add(h.id);
+                if (Objects.equals(habitIdToStartWeek.get(h.getId()), summaryWeek)) {
+                    startedHabits.add(h.getId());
                 }
                 boolean justEnded = false;
-                if (Objects.equals(habitIdToEndWeek.get(h.id), summaryWeek)) {
+                if (Objects.equals(habitIdToEndWeek.get(h.getId()), summaryWeek)) {
                     justEnded = true;
-                    endedHabits.add(h.id);
+                    endedHabits.add(h.getId());
                 }
 
                 // Only skip adding a summary for archived events if this is after the start week
                 // or before or equal the end week
-                if (h.archived && (!startedHabits.contains(h.id)
-                        || (endedHabits.contains(h.id) && !justEnded))) {
+                if (h.getArchived() && (!startedHabits.contains(h.getId())
+                        || (endedHabits.contains(h.getId()) && !justEnded))) {
                     continue;
                 }
 
                 // Omit entries for archived habits if they have no events for the week.
                 List<Event> eventsInWeek = Objects.requireNonNull(habitIDToEvent
-                                .getOrDefault(h.id, new LinkedList<>()))
+                                .getOrDefault(h.getId(), new LinkedList<>()))
                         .stream()
                         .filter(
                             (event) -> Objects.equals(eventIdToSummaryWeek.get(event.id), summaryWeek)
@@ -260,13 +260,13 @@ public class Summary extends RecyclerView.Adapter<Summary.SummaryHolder> {
         private float progress;
 
         HabitSummary(Habit h, List<Event> events) {
-            this.id = h.id;
+            this.id = h.getId();
             this.progress = (float) events.size();
 
             // Make progress a proportion of "done-ness" (0 means not, 1.0+ means done)
-            progress /= h.frequency;
+            progress /= h.getFrequency();
 
-            this.title = h.title;
+            this.title = h.getTitle();
         }
     }
 

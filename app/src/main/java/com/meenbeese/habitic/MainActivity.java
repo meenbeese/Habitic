@@ -244,11 +244,11 @@ public class MainActivity extends AppCompatActivity {
             }
 
             // Error out on empty title habits
-            if (h.title.length() == 0) {
+            if (h.getTitle().length() == 0) {
                 habitCreateTextInput.setError("Habits must have a title");
                 return;
             }
-            if (h.period != 7 * 24) {
+            if (h.getPeriod() != 7 * 24) {
                 // TODO: Make this error on something sane, remove the field from the
                 // UI once I'm sure it's useless
                 habitCreateTextInput.setError("Only weekly habits supported");
@@ -334,7 +334,7 @@ public class MainActivity extends AppCompatActivity {
                 Event[] allEvents = db.habitDao().loadAllEventsSince(0);
                 HashSet<Long> habitIDs = new HashSet<>(allHabits.length);
                 for (Habit h : allHabits) {
-                    habitIDs.add(h.id);
+                    habitIDs.add(h.getId());
                 }
                 HashSet<Long> eventIDs = new HashSet<>(allEvents.length);
                 for (Event e : allEvents) {
@@ -346,7 +346,7 @@ public class MainActivity extends AppCompatActivity {
                         continue;
                     }
                     Habit h = Habit.fromCSV(habitCSV);
-                    if (habitIDs.contains(h.id)) {
+                    if (habitIDs.contains(h.getId())) {
                         continue;
                     }
                     db.habitDao().insertNewHabit(h);
@@ -390,24 +390,24 @@ public class MainActivity extends AppCompatActivity {
         final AutoCompleteTextView habitCreateTextInput = manageHabitView.findViewById(R.id.habit_title_input);
         final EditText habitCreateFrequencyInput = manageHabitView.findViewById(R.id.habit_frequency_input);
         if (habitToEdit != null) {
-            habitCreateTextInput.setText(habitToEdit.title);
-            habitCreateFrequencyInput.setText(Integer.toString(habitToEdit.frequency));
-            habitArchiveSwitch.setChecked(habitToEdit.archived);
+            habitCreateTextInput.setText(habitToEdit.getTitle());
+            habitCreateFrequencyInput.setText(Integer.toString(habitToEdit.getFrequency()));
+            habitArchiveSwitch.setChecked(habitToEdit.getArchived());
 
             habitCreateButton.setOnClickListener(v -> {
 
-                habitToEdit.period = 7 * 24;
-                habitToEdit.title = habitCreateTextInput.getText().toString();
+                habitToEdit.period() = 7 * 24;
+                habitToEdit.title() = habitCreateTextInput.getText().toString();
 
                 String frequencyString = habitCreateFrequencyInput.getText().toString();
                 if (frequencyString.length() > 0) {
-                    habitToEdit.frequency = Integer.parseInt(frequencyString);
+                    habitToEdit.frequency() = Integer.parseInt(frequencyString);
                 }
-                if (habitArchiveSwitch.isChecked() && !habitToEdit.archived) {
-                    habitToEdit.archived = true;
+                if (habitArchiveSwitch.isChecked() && !habitToEdit.getArchived()) {
+                    habitToEdit.archived() = true;
                     habitList.removeHabit(habitList.getHabitIndex(habitToEdit));
-                } else if (habitToEdit.archived){
-                    habitToEdit.archived = false;
+                } else if (habitToEdit.getArchived()){
+                    habitToEdit.archived() = false;
                     habitList.addHabit(habitToEdit);
                 }
 
@@ -455,8 +455,7 @@ public class MainActivity extends AppCompatActivity {
     private void hideManageHabits() {
         // Reset the editing stuff when we navigate away
         if (this.habitToEdit != null) {
-            // Also update the habit we might have edited because we've maybe changed the set of
-            // events
+            // Also update the habit we might have edited because we changed the set of events
             habitList.notifyHabitUpdated(habitToEdit);
             habitList.sort();
             this.setHabitToEdit(null, null);

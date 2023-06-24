@@ -11,21 +11,21 @@ class HabitLogic {
 
     static Event[] loadEventsInCurrentPeriod(HabitDao hd, Habit h) {
         long start = periodStart(h).atZone(ZoneId.systemDefault()).toEpochSecond() * 1000L;
-        return hd.loadEventsForHabitSince(h.id, start);
+        return hd.loadEventsForHabitSince(h.getId(), start);
     }
 
     static String getDescription(Habit h, Event[] events) {
         int numEvents = numEventsInCurrentPeriod(h, events);
-        if (numEvents >= h.frequency) {
+        if (numEvents >= h.getFrequency()) {
             // Done for this period
-            return String.format(Locale.ENGLISH, "Done for this %s", getPeriodName(h.period));
+            return String.format(Locale.ENGLISH, "Done for this %s", getPeriodName(h.getPeriod()));
         }
         return String.format(
                 Locale.ENGLISH,
                 "Done %d / %d times so far this %s",
                 numEvents,
-                h.frequency,
-                getPeriodName(h.period));
+                h.getFrequency(),
+                getPeriodName(h.getPeriod()));
     }
 
     static boolean onTrack(Habit h, Event[] events, int percentBehindAllowed) {
@@ -36,12 +36,12 @@ class HabitLogic {
 
         LocalDateTime start = periodStart(h);
         long between = ChronoUnit.HOURS.between(start, cur);
-        int diff = (int) Math.round(((double)between / (double)h.period) * 100);
+        int diff = (int) Math.round(((double)between / (double) h.getPeriod()) * 100);
         return diff - currentProgress(h, events) > percentBehindAllowed;
     }
 
     static boolean isDone(Habit h, Event[] events) {
-        return numEventsInCurrentPeriod(h, events) >= h.frequency;
+        return numEventsInCurrentPeriod(h, events) >= h.getFrequency();
     }
 
     /**
@@ -51,7 +51,7 @@ class HabitLogic {
      */
     static int currentProgress(Habit h, Event[] events) {
         int n = numEventsInCurrentPeriod(h, events);
-        int val = Math.round(((float)n / (float)h.frequency) * 100);
+        int val = Math.round(((float)n / (float) h.getFrequency()) * 100);
         if (val > 100) {
             val = 100;
         }
@@ -75,7 +75,7 @@ class HabitLogic {
 
     private static LocalDateTime periodStart(Habit h) {
         LocalDateTime cur = LocalDateTime.now();
-        if (h.period == 7 * 24) {
+        if (h.getPeriod() == 7 * 24) {
             DayOfWeek today = cur.getDayOfWeek();
             while (today != DayOfWeek.MONDAY) {
                 cur = cur.minusDays(1);
@@ -86,7 +86,7 @@ class HabitLogic {
             cur = cur.minusMinutes(cur.getMinute());
             return cur.minusSeconds(cur.getSecond());
         }
-        if (h.period == 24) {
+        if (h.getPeriod() == 24) {
             // Move it back to 0
             cur = cur.minusHours(cur.getHour());
             cur = cur.minusMinutes(cur.getMinute());

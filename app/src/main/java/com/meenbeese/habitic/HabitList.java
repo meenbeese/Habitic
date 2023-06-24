@@ -44,7 +44,7 @@ public class HabitList extends RecyclerView.Adapter<HabitList.HabitHolder> {
     public void onBindViewHolder(final HabitHolder holder, int position) {
         final HabitList thisList = this;
         final Habit thisHabit = this.habits.get(position);
-        holder.title.setText(thisHabit.title);
+        holder.title.setText(thisHabit.getTitle());
         Event[] events = HabitLogic.loadEventsInCurrentPeriod(db.habitDao(), thisHabit);
         holder.description.setText(HabitLogic.getDescription(thisHabit, events));
 
@@ -65,7 +65,7 @@ public class HabitList extends RecyclerView.Adapter<HabitList.HabitHolder> {
         }
 
         holder.itemView.setOnLongClickListener(v -> {
-            Event[] events1 = db.habitDao().loadAllEventsForHabit(thisHabit.id);
+            Event[] events1 = db.habitDao().loadAllEventsForHabit(thisHabit.getId());
 
             editHabitCallback.accept(new Pair<>(thisHabit, events1));
             return true;
@@ -75,7 +75,7 @@ public class HabitList extends RecyclerView.Adapter<HabitList.HabitHolder> {
             holder.doneButton.setOnClickListener(v -> {
                 Event event = new Event();
 
-                event.habitId = thisHabit.id;
+                event.habitId = thisHabit.getId();
 
                 event.timestamp = System.currentTimeMillis();
                 if (event.maybeAdjustTimestampToPreviousDay()) {
@@ -120,12 +120,12 @@ public class HabitList extends RecyclerView.Adapter<HabitList.HabitHolder> {
     public int getHabitIndex(Habit h) {
         int i = 0;
         for (Habit cur : this.habits) {
-            if (cur.id == h.id) {
+            if (cur.getId() == h.getId()) {
                 return i;
             }
             i++;
         }
-        throw new RuntimeException("Unexpected habit passed to getHabitIndex " + h.id);
+        throw new RuntimeException("Unexpected habit passed to getHabitIndex " + h.getId());
     }
 
     public void notifyHabitUpdated(Habit h) {
@@ -150,12 +150,12 @@ public class HabitList extends RecyclerView.Adapter<HabitList.HabitHolder> {
         int i = 0;
         for (Habit h : habits) {
             Event[] events = HabitLogic.loadEventsInCurrentPeriod(db.habitDao(), h);
-            idToIsDone.put(h.id, HabitLogic.isDone(h, events));
-            originalIDOrder[i++] = h.id;
+            idToIsDone.put(h.getId(), HabitLogic.isDone(h, events));
+            originalIDOrder[i++] = h.getId();
         }
         this.habits.sort((o1, o2) -> {
-            boolean o1IsDone = Boolean.TRUE.equals(idToIsDone.get(o1.id));
-            boolean o2IsDone = Boolean.TRUE.equals(idToIsDone.get(o2.id));
+            boolean o1IsDone = Boolean.TRUE.equals(idToIsDone.get(o1.getId()));
+            boolean o2IsDone = Boolean.TRUE.equals(idToIsDone.get(o2.getId()));
             if (o1IsDone && !o2IsDone) {
                 return 1;
             }
@@ -164,21 +164,21 @@ public class HabitList extends RecyclerView.Adapter<HabitList.HabitHolder> {
             }
 
             // Sort events that have a lower period first (e.g. daily before weekly)
-            if (o1.period < o2.period) {
+            if (o1.getPeriod() < o2.getPeriod()) {
                 return -1;
             }
-            if (o1.period > o2.period) {
+            if (o1.getPeriod() > o2.getPeriod()) {
                 return 1;
             }
 
             // Sort events that must be done more often first (e.g. twice daily before once)
-            return o2.frequency - o1.frequency;
+            return o2.getFrequency() - o1.getFrequency();
         });
 
         // Only notify on change if we changed something...
         i = 0;
         for (Habit h : habits) {
-            if (h.id != originalIDOrder[i++]) {
+            if (h.getId() != originalIDOrder[i++]) {
                 this.notifyItemRangeChanged(0, this.habits.size());
                 return true;
             }
