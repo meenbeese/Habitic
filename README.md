@@ -19,13 +19,8 @@ A simple habit tracker that places simplicity above all else while still providi
 
 ## 🌄 Screenshots
 
-| Home                                                               | Overview                                                           |
-|--------------------------------------------------------------------|--------------------------------------------------------------------|
-| ![Home](fastlane/metadata/en-US/images/phoneScreenshots/1.png)     | ![Overview](fastlane/metadata/en-US/images/phoneScreenshots/3.png) |
-
-| Manage                                                             | Export                                                             |
-|--------------------------------------------------------------------|--------------------------------------------------------------------|
-| ![Settings](fastlane/metadata/en-US/images/phoneScreenshots/2.png) | ![Export](fastlane/metadata/en-US/images/phoneScreenshots/4.png)   |
+| <img title="Home" src="fastlane/metadata/en-US/images/phoneScreenshots/1.png" alt="Home" width="330" align="center"> | <img title="Overview" src="fastlane/metadata/en-US/images/phoneScreenshots/2.png" alt="Overview" width="330" align="center"> | <img title="Manage" src="fastlane/metadata/en-US/images/phoneScreenshots/3.png" alt="Manage" width="330" align="center"> | <img title="Export" src="fastlane/metadata/en-US/images/phoneScreenshots/4.png" alt="Export" width="330" align="center">
+|:-------------------------------------------------------------------------------------------------------:|:------------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------------------:|
 
 ## ⭐ Features
 
@@ -67,7 +62,7 @@ As a contributor, you are highly valued - any contribution, no matter how small,
 
 ## ✏️ Acknowledgements
 
-I would like to give a huge thanks to all of Habitic [contributors](https://github.com/meenbeese/Habitic/graphs/contributors), the developers that write the software we depend on, and the users that support our goal. Also, props to [F-Droid](https://f-droid.org/en/about/) for maintaining the free software repository that distributes our app and many others like it.
+I would like to give a huge thanks to all of the Habitic [contributors](https://github.com/meenbeese/Habitic/graphs/contributors), the developers that write the software we depend on, and the users that support our goal. Also, props to [David Wetterau](https://www.davidw.tech/) for his awesome Habits app, where this project is originally forked from. [F-Droid](https://f-droid.org/en/about/) for maintaining the free software repository that distributes our app and many others like it.
 
 I have received a lot of thanks from various people for the time I've put into this, and that thought helps me get up in the morning. If someone fixes a bug you encountered, helps you out in an issue, or implements a feature you enjoy, please consider sending them a tip or a thank-you note to let them know that you appreciate their time :)
 
