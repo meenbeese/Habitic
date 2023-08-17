@@ -47,8 +47,8 @@ jobs:
         releaseDirectory: app/release
         signingKeyBase64: ${{ secrets.KEY_BASE64 }}
         alias: ${{ secrets.ALIAS }}
-        keyStorePassword: ${{ secrets.KEYSTORE_PASS }}
-        keyPassword: ${{ secrets.KEYSTORE_PASS }}
+        keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+        keyPassword: ${{ secrets.KEY_PASSWORD }}
 
     - uses: actions/upload-artifact@v3.1.2 
       with:
