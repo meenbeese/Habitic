@@ -3,6 +3,7 @@
     <style name="Base.Theme.Habitic" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:statusBarColor">@color/black</item>
     </style>
 
     <style name="Theme.Habitic" parent="Base.Theme.Habitic" />

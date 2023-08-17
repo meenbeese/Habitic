@@ -4,7 +4,7 @@ import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.service.quicksettings.TileService
 
-class MyTileService: TileService() {
+class TileService: TileService() {
 
     // Called when the user adds your tile.
     override fun onTileAdded() {

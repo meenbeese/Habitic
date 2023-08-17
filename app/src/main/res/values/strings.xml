@@ -12,7 +12,7 @@
     <string name="exported">Export</string>
     <string name="export_description">Exported data from the app</string>
     <string name="habit_description">Habit longer description</string>
-    <string name="habit_done_description">This habit has been complemented once!</string>
+    <string name="habit_done_description">This habit has been completed once!</string>
     <string name="habit_title">Habit Title</string>
     <string name="imported">Import</string>
     <string name="month_of_whatever">Month of whatever</string>
